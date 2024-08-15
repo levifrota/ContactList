@@ -18,9 +18,10 @@ public class AddEditContact extends AppCompatActivity {
     private EditText nameEt,phoneEt,emailEt;
     private FloatingActionButton fab;
 
-    String name,email,phone;
+    private String name,email,phone;
 
-    ActionBar actionBar;
+    private ActionBar actionBar;
+    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class AddEditContact extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_contact);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dbHelper = new DbHelper(this);
 
         actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -50,14 +53,23 @@ public class AddEditContact extends AppCompatActivity {
         });
     }
 
-
     private void saveData() {
         name = nameEt.getText().toString();
         phone = phoneEt.getText().toString();
         email = emailEt.getText().toString();
 
-        if(!name.isEmpty() || !phone.isEmpty() || !email.isEmpty()) {
+        String timeStamp = ""+System.currentTimeMillis();
 
+        if(!name.isEmpty() || !phone.isEmpty() || !email.isEmpty()) {
+            long id = dbHelper.insertContact(
+                    ""+name,
+                    ""+phone,
+                    ""+email,
+                    ""+timeStamp,
+                    ""+timeStamp
+            );
+
+            Toast.makeText(getApplicationContext(), "Deu bom", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "Preencha ao menos um campo", Toast.LENGTH_SHORT).show();
         }

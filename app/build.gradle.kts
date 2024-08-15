@@ -44,6 +44,4 @@ dependencies {
     implementation("com.intuit.ssp:ssp-android:1.0.6")
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
-
-//    implementation("com.theartofdev.edmodo:android-image-cropper:2.8.0")
 }
